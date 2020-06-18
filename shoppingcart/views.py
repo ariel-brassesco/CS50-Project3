@@ -363,5 +363,6 @@ def send_email_user(template, context, subject, from_email, user):
     # Set email data
     html_message = render_to_string(template, context=context)
     message = strip_tags(html_message)
+    print(message)
     # Send email
     user.email_user(subject, message, from_email, html_message=html_message)

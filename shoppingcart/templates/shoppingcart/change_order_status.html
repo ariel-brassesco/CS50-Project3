@@ -1,35 +1,10 @@
-{% extends "base.html" %}
-
 {% load static %}
-{% load orders_tag %}
-
-{%block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_profile.css' %}">
-{% endblock %}
-
-{% block body %}
-<div class="mainPage">
-    <div class="grid-header">
-        <div class="place-info">
-            <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
-            <h1 class="display-4">{{PLACE.name}}</h1>
-        </div>
-    </div>
-    <div>
-
-        <p>Hello {{ user.username|upper }},</p><br>
-
-
-        <p>Your {{ order }} is {{ status }}.</p>
-        <br>
-        <p>Sincerely,<br>
-        Pinocchio's Pizza Team</p>
-    </div>
-</div>
-
-{% endblock %}
+<header>
+    <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
+    <h1 class="display-4">{{PLACE.name}}</h1>
+</header>
+<main>
+    <p><strong>Hello {{ user.username|upper }},</strong></p>
+    <p>Your {{ order }} is {{ status }}. Click <a href="{% url 'shoppingcart:orders_user' user.username %}">here</a> to follow.</p>
+    <p><strong>,<br>Pinocchio's Pizza Team</strong></p>
+</main>
