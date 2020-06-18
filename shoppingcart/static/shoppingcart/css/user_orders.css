@@ -1,0 +1,164 @@
+/* CSS for status of User Orders */
+.status-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.status-text {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.status-bar {
+    --delay-status: 0s;
+    --transition-status: 500ms;
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 0 5px;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 0;
+    height: 100%;
+    background-color: rgb(2, 36, 187);
+    transition: width var(--transition-status) ease-in-out var(--delay-status);
+}
+
+.status-bar-final {
+    --delay-status: 0s;
+    --transition-status: 500ms;
+    position: relative;
+    display: inline-block;
+    width: 90%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 0 5px;
+}
+
+.status-bar-final::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 0;
+    height: 100%;
+    background-color: green;
+    transition: width var(--transition-status) ease-in-out var(--delay-status);
+}
+
+.status-bar-final::after {
+    content: '\2713';
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    font-size: 15px;
+    color: green;
+    padding-left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 255, 0 , 0.4);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.status-processing {
+    --delay-status: 0s;
+}
+
+.status-preparing {
+    --delay-status: var(--transition-status);
+}
+
+.status-delivering {
+    --delay-status: calc(2*var(--transition-status));
+}
+
+.status-ready {
+    --delay-status: calc(2*var(--transition-status));
+}
+
+.status-ready::before{
+    -webkit-animation-name: statusbar;
+    -webkit-animation-duration: calc(2*var(--transition-status));
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: normal;
+    -webkit-animation-fill-mode: forwards;
+
+    animation-name: statusbar;
+    animation-duration: calc(2*var(--transition-status));
+    animation-timing-function: ease-in-out;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+.status-ready::after{
+    animation: ready 1s ease-in-out var(--transition-status) normal forwards;
+    -webkit-animation: ready 1s ease-in-out var(--transition-status) normal forwards;
+}
+
+.status-complete::before {
+    width: 100%;
+}
+
+.status-incomplete::before {
+    -webkit-animation-name: statusbar;
+    -webkit-animation-duration: var(--transition-status);
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: normal;
+
+    animation-name: statusbar;
+    animation-duration: var(--transition-status);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: normal;
+}
+
+@keyframes statusbar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes statusbar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes ready {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes ready {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

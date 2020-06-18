@@ -1,0 +1,84 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_manage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+{% endblock%}
+
+{% block body%}
+
+<div class="mainPage">
+
+    <div class="grid-header">
+        <div class="place-info">
+            <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
+            <h1 class="display-4">{{PLACE.name}} <br>Order {{ order }}</h1>
+        </div>
+    </div>
+
+    <div class="grid-main grid-order-detail">
+        <div>
+            <h3> User Details</h3>
+            <table class="order-detail">
+                <tr>
+                    <td>User</td>
+                    <td>{{order.user.username|upper}}</td>
+                </tr>
+                <tr>
+                    <td>e-mail</td>
+                    <td>{{order.user.email}}</td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+        
+        <div>
+            <h3> Order Details</h3>
+            <table class="order-detail">
+                <tr>
+                    <td>Order</td>
+                    <td>{{order}}</td>
+                </tr>
+                <tr>
+                    <td>Delivery</td>
+                    <td>{{order.get_deli_mode_display}}</td>
+                </tr>
+                {% if order.deli_mode == 'D' %}
+                <tr>
+                    <td>Address</td>
+                    <td>{{order.address}}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>Status</td>
+                    <td>{{order.get_status_display}}</td>
+                </tr>
+            </table>
+            <hr>
+            {% for item in items%}
+            <div class="item-detail">
+                <p> {{item.quantity}} x {{item.product}} (${{item.price_unitary|floatformat:2}}) ${{item.total|floatformat:2}}</p>
+                <ul>
+                    <li>{{item.presentation}}</li>
+                    <li>{{item.size}}</li>
+                    {% if item.additional %}
+                    <li>{{item.additional}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+            <hr>
+            <div class="order-total">
+                <p>Total: </p> <p>$ {{order.total|floatformat:2}}</p>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block javascript %}
+{% endblock %}

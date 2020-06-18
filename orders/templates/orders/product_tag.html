@@ -1,0 +1,14 @@
+{% load orders_filters %}
+<div class="profile-card-product" data-indexslide="{{index}}" >
+  <div class="product-card-info">
+    <div>
+      <h5 class="product-card-title">{{ product.name }}</h5>
+      <p>{{ product.description}}</p>
+    </div>
+    <div class="hide-text-overflow"></div>
+    <p class="text-muted"><strong>{{ price__min|floatformat:2|dolar_sign }} + </strong></p>
+  </div>
+  <div class="product-card-picture">
+    <img src="{{ product.image.url }}" class="product-img" alt="{{product.name}}">
+  </div>
+</div>

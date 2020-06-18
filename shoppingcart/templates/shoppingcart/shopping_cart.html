@@ -1,0 +1,49 @@
+{% load shoppingcart_tag %}
+{% load static %}
+
+<div id="cart">
+    <form id="cart-checkout" action="{% url 'shoppingcart:checkout'%}" method='POST'>
+        {% csrf_token %}
+    <div class="cart-header"> CART <i class="fas fa-shopping-cart"></i> </div>
+    <div class="cart-delivery">
+        <div class="cart-spam-delivery"><h5>Takeout</h5><i id="cart-takeout-show" class="fas fa-angle-down"></i></div>
+        <div class="cart-delivery-options">
+            <label for="cart-takeaway">
+                <input id="cart-takeaway" type="radio" name="deli-mode" value="T" checked>
+                <img class="takeout-icon" src="{% static 'images/takeaway-icon.ico' %}">
+            </label>
+            <label for="cart-delivery">
+                <input id="cart-delivery" type="radio" name="deli-mode" value="D">
+                <img class="takeout-icon" src="{% static 'images/delivery-icon.ico' %}">
+            </label>
+            <div class="cart-delivery-inputs">
+                <label for="delivery-address">
+                    <spam>Address</spam><br>
+                <input type="text" id="delivery-address" maxlength="200" name="delivery-address">
+                </label>
+                <label for="delivery-appartment">
+                    <spam>Floor/Appartment</spam><br>
+                <input type="text" id="delivery-appartment" maxlength="50" name="delivery-appartment">
+                </label>
+                <label for="delivery-information">
+                    <spam>Additional Information</spam><br>
+                <textarea type="text" id="delivery-information" maxlength="400" name="delivery-information"></textarea>
+                </label>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="cart-body">
+        {% for item in cart.items %}
+            {% show_item item %}
+        {% empty %}
+        <h5>ADD ITEMS TO YOUR CART</h5>
+
+        {% endfor %}
+    </div>
+
+    <button class="btn btn-primary" type="submit" id='cart-checkout-btn'>CHECK OUT | Total: <spam id="cart-total-cost">{{ cart.total|floatformat:2 }}</spam></button>
+    </form>
+</div>
+

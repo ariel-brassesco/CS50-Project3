@@ -1,0 +1,338 @@
+/* Product Card in Profile */
+.profile-card-product {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 2px;
+  height: 100px;
+  width: 400px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.product-card-info {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: auto;
+  height: auto;
+  font-size: 12px;
+}
+
+.product-card-info div {
+  overflow-y: hidden;
+}
+
+.hide-text-overflow {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  height: 20px;
+  background: -moz-linear-gradient(bottom, rgba(255,255,255,1),  rgba(255,255,255,0));
+  background: linear-gradient(bottom, rgba(255,255,255,1),  rgba(255,255,255,0));
+}
+
+.text-muted {
+  margin: 0;
+}
+.product-card-picture {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.product-img {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.profile-card-product:hover, .profile-card-product:focus {
+  border: 1px solid lightseagreen;
+  box-shadow: 5px 5px 2px 2px lightseagreen;
+}
+
+/* Slideshow container */
+.slideproduct-container {
+  max-width: 1000px;
+  max-height: 700px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.product-slide {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* Position the "prev button" to the left */
+.prev {
+  left: 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-name: fade;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+
+/* Product Slides CSS */
+.product-info {
+  width: 50%;
+  margin-right: 50px;
+}
+
+.product-info img {
+  width: 200px;
+}
+
+.product-info p {
+  text-align: justify;
+}
+
+.product-form {
+  min-width: 40%;
+}
+
+.product-additionals {
+  max-height: 10em;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
+.product-form-header {
+  margin-top: 10px;
+}
+
+/*
+    Toggle switch for Product Presentations Selector
+*/
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  width: 40px;
+  height: 20px;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* Add a content to span tag to create a white circle */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/* Rounded the span tag */
+.slider.round {
+  border-radius: 20px;
+}
+
+/* Rounded the content of span to create a circle */
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* When the radio is checked change the color of span*/
+input[name=presentation]:checked + .slider, input[name=presentation]:checked ~ .switch {
+  background-color: #2196F3;
+  box-shadow: 0 0 1px #2196F3;
+}
+
+/* When the radio is checked move the white circle to right*/
+input[name=presentation]:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+.switch p {
+  position: absolute;
+  left: 45px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* CSS for product form footer */
+.loader-add-item {
+  position: relative;
+  min-width: 250px;
+}
+
+.loader-add-item button {
+  min-width: 100%;
+}
+
+.loader-add-item i {
+  border: none;
+}
+
+.waiting-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  color: #bbb;
+  opacity: 1;
+}
+
+.success-loader {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  width: 0%;
+  height: 100%;
+}
+
+.success-loader i {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  z-index: 11;
+  font-size: 0px;
+  color: white;
+}
+
+.appearce {
+  -webkit-animation-name: success;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
+
+  animation-name: success;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.ok-item {
+  -webkit-animation-name: ok-item-add;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
+
+  animation-name: ok-item-add;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  
+}
+
+@keyframes success {
+  0% {
+    min-width: 0%;
+    background-color: rgb(2, 175, 2);
+  }
+  100% {
+    min-width: 100%;
+    background-color: rgb(2, 175, 2);
+  }
+}
+
+@-webkit-keyframes success {
+  0% {
+    min-width: 0%;
+    background-color: rgb(2, 175, 2);
+  }
+  100% {
+    min-width: 100%;
+    background-color: rgb(2, 175, 2);
+  }
+}
+
+@keyframes ok-item-add {
+  50% {
+    opacity: 0;
+    font-size: 0px;
+  }
+  60% {
+    opacity: 1;
+    font-size: 30px;
+  }
+  100% {
+    font-size: 20px;
+  }
+}
+
+@-webkit-keyframes ok-item-add {
+  50% {
+    opacity: 0;
+    font-size: 0px;
+  }
+  60% {
+    opacity: 1;
+    font-size: 30px;
+  }
+  100% {
+    font-size: 20px;
+  }
+}

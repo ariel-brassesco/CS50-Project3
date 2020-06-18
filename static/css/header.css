@@ -1,0 +1,61 @@
+.grid-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+#btn-logout {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#btn-back-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+.login-index {
+    font-size: 10px;
+}
+
+.index-login-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-top: 3px;
+    padding-right: 3px;
+
+}
+
+.index-inputs {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+}
+
+.index-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0;
+    margin-bottom: 2px;
+}
+
+.index-input input {
+    width: 80px;
+    line-height: 10px;
+    opacity: 0.5;
+}
+
+.index-input span {
+    margin-right: 5px;
+}
+

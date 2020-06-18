@@ -1,0 +1,71 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+
+{% block css%}
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_manage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/responsive_orders.css' %}">
+{% endblock%}
+
+{% block body%}
+<div class="mainPage">
+
+    <div class="grid-header">
+        <div class="place-info">
+            <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
+            <h1 class="display-4">{{PLACE.name}} <br>Orders</h1>
+        </div>
+        <a id="btn-logout" class="btn btn-danger" type="button" href="{% url 'registration:logout' %}">Logout</a>
+    </div>
+
+    <div class="grid-main">
+
+        <div id='search-bar'>
+            <div class="filter-search">
+                <form>
+                <input type='text' name='field-value'>
+                <select name='field'>
+                    <option value='order'>ORDER</option>
+                    <option value='username'>USERNAME</option>
+                    <option value='delivery'>DELIVERY</option>
+                    <option value='address'>ADDRESS</option>
+                    <option value='status'>STATUS</option>
+                </select>
+                </form>
+            </div>
+            <button id="add-filter" class="btn btn-info">+ Add</button>
+            <button id="search-btn" class="btn btn-info">Search</button>
+        </div>
+
+        <div class="table-container">
+            <button id='update-table' class='btn btn-warning'><i class='fa fa-refresh'></i></button>
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th data-field="order" data-asc="false">ORDER</th>
+                        <th data-field="date" data-asc="false">DATE</th>
+                        <th data-field="username" data-asc="false">USERNAME</th>
+                        <th data-field="delivery" data-asc="false">DELIVERY</th>
+                        <th data-field="address" data-asc="false">ADDRESS</th>
+                        <th data-field="total" data-asc="false">TOTAL</th>
+                        <th data-field="status" data-asc="false">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <div id='pagination'>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/data.js' %}"></script>
+<script type="text/javascript" src="{% static 'orders/js/orders_manage.js' %}"></script>
+{% endblock %}

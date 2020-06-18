@@ -1,0 +1,92 @@
+
+<div class="product-slide fade">
+    <div class="product-info">
+        <img src="{{product.image.url}}">
+        <h3> {{ product.name }}</h3>
+        <br>
+        {% if product.description %}
+        <p>{{ product.description }}</p>
+        {% endif %}
+    </div>
+    <div class="product-form">
+        
+        <form action="{% url 'shoppingcart:add_item' %}" method='post' data-type='add'>
+            {% csrf_token %}
+        <input class="inactive" type="text" name="product" value="{{ product.id }}">
+        {% if sizes %}
+        <h5 class="product-form-header">Size</h5>
+        <div class="product-sizes">
+            {% for size in sizes%}
+                {%if forloop.first %}
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="size" value={{size.id}} checked>
+                        {{size}} $<spam class="product-size-price"></spam>
+                    </label>
+                </div>
+                {% else %}
+                <br>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="size" value={{size.id}}>
+                        {{size}} $<spam class="product-size-price"></spam>
+                    </label>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if presentations|length > 1 %}
+        <h5 class="product-form-header"> Want to try our ...</h5>
+        <div class="product-presentations" data-default="{{ presentations.0.id }}" data-previous="{{ presentations.0.id }}">
+            {% for var in presentations %}
+            {% if forloop.first %}
+                <label class="switch inactive">
+                    <input type="radio" name="presentation" value="{{var.id}}" checked>
+                    <span class="slider round"></span> <p>{{var.variation}}</p>
+                </label>
+            {% else %}
+                <label class="switch">
+                    <input type="radio" name="presentation" value="{{var.id}}" hidden>
+                    <span class="slider round"></span> <p>{{var.variation}}</p>
+                </label><br>
+            {% endif %}
+            {% endfor%}
+            
+        </div>
+        {% else %}
+        <input type="radio" name="presentation" value="{{ presentations.0.id }}" hidden checked>
+        {% endif %}
+
+        {% if additionals %}
+        <h5 class="product-form-header">Or try some toppings ...</h5>
+        <div class="product-additionals">
+            {% for additional in additionals %}
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="additionals" value="{{additional.id}}">
+                    {{additional.topping}} ${{additional.price|floatformat:2}}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="cart-item-footer">
+            <div>
+                <div><i class="material-icons btn-minus">remove</i></div>
+                <input class="cart-item-quantity product-edit-item-quantity" type="text" name="item-quantity" value="1">
+                <div><i class="material-icons btn-plus">add</i></div>
+            </div>
+            <div class="loader-add-item">
+                <div class="success-loader">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <button class="btn btn-primary waiting-loader inactive"><i class="fa fa-asterisk fa-spin"></i> Loading</button>
+                <input type="reset" name="reset" hidden>
+                <button type="submit" class="btn btn-primary ">ADD TO CART - $<spam class="product-form-price">{{ 0|floatformat:2 }}</spam> </button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

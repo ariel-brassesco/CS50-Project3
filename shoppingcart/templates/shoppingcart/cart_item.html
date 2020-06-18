@@ -1,0 +1,35 @@
+<div class="cart-item">
+    <div class="cart-item-tools">
+        <spam class="cart-item-tool">
+            <i class="fa fa-pen cart-item-edit" data-id="{{id}}"></i>
+        </spam>
+        <spam class="cart-item-tool cart-item-remove">
+            <a href="{% url 'shoppingcart:remove_item' id %}"><i class="fa fa-times"></i></a>
+        </spam>
+    </div>
+    <div class="cart-item-description">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+        <div>
+        <h4 class="cart-item-product">{{ product.name }}</h4>
+        <ul class="cart-item-additionals">
+        {%if not presentation.is_base %}
+            <li>{{ presentation }}</li>
+        {% endif %}
+            <li>{% if size %}{{ size }}{% endif %}</li>
+        {% for ad in additional %}
+            <li><i class="material-icons">add</i>{{ ad.topping }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+    <div class="cart-item-footer">
+        <div>
+            <div><i class="material-icons btn-minus">remove</i></div>
+            <input class="cart-item-quantity card-edit-item-quantity" type="text" name="item-quantity" value="{{quantity}}" data-id="{{id}}">
+            <div><i class="material-icons btn-plus">add</i></div>
+        </div>
+        <div>
+            <spam>Price: $ </spam><spam class="cart-item-price">{{ total_price|floatformat:2 }}</spam>
+        </div>
+    </div>
+</div>

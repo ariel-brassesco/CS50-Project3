@@ -1,0 +1,25 @@
+@media (max-width: 600px){
+    .product-slide {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-y: scroll;
+        padding: 0;
+    }
+    
+    .product-info, .product-form {
+        width: 100%;
+    }
+
+    .product-info img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .loader-add-item {
+        min-width: 100px;
+    }
+
+    .loader-add-item button[type='submit'] {
+        font-size: 12px;
+    }
+}

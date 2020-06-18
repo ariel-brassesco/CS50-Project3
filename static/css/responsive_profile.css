@@ -1,0 +1,62 @@
+@media (max-width: 600px){
+    
+    /*Change the grid */
+    .mainPage {
+        height: 100vh;
+        display: -webkit-box;
+        display: -moz-grid;
+        display: grid;
+        
+        grid-template-areas:
+        "header"
+        "main"
+        "contact"
+        "footer";
+    
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+    
+        align-content: stretch;
+        justify-content: center;
+    }
+
+    /*Hide Cart*/
+    .grid-nav {
+        display:none;
+    }
+
+    /*Show cart in navigation bar*/
+    #nav-bar-cart {
+        display: block;
+    }
+
+    /*Add some margin to the right of grid-main*/
+    .grid-main{
+        margin-right: 10px;
+    }
+
+
+    /* Change section About Us */
+    .grid-contact {
+        grid-area: contact;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #about-us {
+        order: 1;
+    }
+
+    #googleMap {
+        order: 3;
+        margin-bottom: 20px;
+    }
+
+    #grid-contact-content {
+        order: 2;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: justify;
+    }
+    
+}

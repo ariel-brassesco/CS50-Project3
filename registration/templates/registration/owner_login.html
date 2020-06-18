@@ -1,0 +1,35 @@
+{% extends "registration/base.html" %}
+
+{% load static %}
+
+{% block body %}
+<div class="signinForm loginForm">
+  <div class='header-form-log'>
+    <img src="{{ PLACE.image.url }}" alt='logo'>
+    <h5>{{ PLACE.name }} - Owner Login</h5>
+    <hr>
+  </div>
+
+  <form id="login-form" action="{% url 'registration:owner_login' %}" method='post'>
+      {% csrf_token %}
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password">
+      <spam class='error-msg'></spam>
+    </div>
+    <div class="form-submit">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <br>
+      <small><a href="{% url 'registration:password_reset' %}">Forget your password?</a></small>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'registration/js/login.js' %}"></script>
+{% endblock %}

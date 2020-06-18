@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+    color: black;
+}
+
+.signinForm {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 700px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 3px #ddd;
+    border-radius: 10px;
+}
+
+.loginForm {
+    max-width: 500px;
+}
+
+.header-form-log{
+    display: inline-flex;
+    width: 100%;
+    padding: 10px;
+    background-color: green;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: white;
+}
+
+.header-form-log img {
+    width: 50px;
+    margin-right: 20px;
+}
+
+.signinForm form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.form-submit {
+    width: 100%;
+    text-align: center;
+}
+
+.msg{
+    position: fixed;
+    bottom: 100px;
+    z-index: 10;
+
+    background-color: lightcoral;
+    border: 2px solid red;
+    
+    border-radius: 30px;
+    min-width: 500px;
+    transform: translateX(50%);
+    height: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.error-msg {
+    font-weight: bold;
+    color: red;
+}
+
+.error {
+    -webkit-animation-name: error-signin;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-fill-mode: forwards;
+
+    animation-name: error-signin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes error-signin {
+    0%{
+        bottom: -100px;
+        opacity: 0;
+    }
+    50%{
+        bottom:0px;
+        opacity: 1;
+    }
+    100%{
+        bottom: 100px;
+    }
+}
+
+@-webkit-keyframes error-signin {
+    0%{
+        bottom: -100px;
+        opacity: 0;
+    }
+    50%{
+        bottom:0px;
+        opacity: 1
+    }
+    100%{
+        bottom: 100px;
+    }
+}
+
+
+.inactive {
+    display: none;
+}

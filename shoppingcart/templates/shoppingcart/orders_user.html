@@ -1,0 +1,68 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+{% load orders_tag %}
+
+
+{%block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'shoppingcart/css/user_orders.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_manage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+{% endblock %}
+
+
+{% block body%}
+<div class="mainPage">
+    <div class="grid-header">
+        <div class="place-info">
+            <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
+            <h1 class="display-4">{{user.username|upper}}'s Orders</h1>
+        </div>
+        <a id="btn-back-menu" class="btn btn-danger" href="{% url 'orders:profile'%}">Back to Menu</a>
+    </div>
+
+    <div class="grid-main order-user-main">
+    {% for order in orders reversed%}
+        <div class="order-user">
+            <div class="order-user-header">
+                <h6>Order {{order}}</h6>
+                <span class='order-user-date'>{{order.date_order.date}}</span>
+            </div>
+            
+            {% for item in order.items.select_related %}
+            <div class="item-detail order-user-item-detail">
+                <p> {{item.quantity}} x {{item.product}} (${{item.price_unitary|floatformat:2}}) ${{item.total|floatformat:2}}</p>
+                <ul>
+                    <li>{{item.presentation}}</li>
+                    
+                    {% if item.size %}
+                        <li>{{item.size}}</li>
+                    {% endif %}
+
+                    {% if item.additional %}
+                        <li>{{item.additional}}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+            <div class="order-total">
+                <p>Total:</p> <p>$ {{order.total|floatformat:2}}</p>
+            </div>
+
+            <div class="order-user-status" data-status="{{order.status}}">
+                <p class="status-text">{{order.get_status_display|upper}}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>You don't have Orders. <a href="{% url 'orders:profile' %}">Go to make you first order</a>.</p>
+    {% endfor %}
+    </div>
+</div>
+{% endblock%}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'shoppingcart/js/user_orders.js' %}"></script>
+{% endblock %}

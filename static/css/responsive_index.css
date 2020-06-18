@@ -1,0 +1,39 @@
+
+@media (max-width: 600px){
+    
+    /*Change the grid */
+    .mainPage {
+        height: 100vh;
+        display: -webkit-box;
+        display: -moz-grid;
+        display: grid;
+        
+        grid-template-areas:
+        "header"
+        "main"
+        "nav"
+        "contact"
+        "footer";
+    
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+    
+        align-content: stretch;
+        justify-content: center;
+    }
+
+
+    /* Change the menu tables*/
+    .index-products th:first-child {
+        width: 60%;
+    }
+    
+    .index-products th:last-child {
+        max-width: 20%;
+    }
+
+    /* Add some margin at the bottom*/
+    #opening-hours {
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load orders_tag %}
+{% load shoppingcart_tag %}
+
+{%block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/loader.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shoppingcart/css/shopping_cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_tag.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/modal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/responsive_modal.css' %}">
+{% endblock %}
+
+{% block externaljs %}
+    <!-- Stripe.js for online payments -->
+    <script async defer src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block body %}
+<div class="mainPage">
+    <div class="grid-header">
+        {% show_place PLACE %}
+        <a id="btn-logout" class="btn btn-primary" type="button" href="{% url 'registration:logout' %}">Logout</a>
+    </div>
+
+    <div class="grid-main">
+        {% for item in menu.platters %}
+        <div class="menu-profile">
+            <div class="menu-profile-header">
+                <h3>{{item.item_type}}</h3>
+            </div>
+            <div class="menu-profile-products">
+                {% for food in menu.products %}
+                    {% if food.menu_type.id == item.id%}
+                        {% show_product food forloop.counter%}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="grid-nav">
+        {% show_cart shopping_cart %}
+    </div>
+
+    <div class="grid-contact" id="place-info">
+        <h3 id='about-us'>About Us</h3>
+        <div id="googleMap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5895.209360870708!2d-71.12287183467689!3d42.372263466870216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcab27982991e9fe3!2sPinocchio&#39;s%20Pizza%20%26%20Subs!5e0!3m2!1ses-419!2sar!4v1592247774095!5m2!1ses-419!2sar"
+             allowfullscreen aria-hidden="false" tabindex="0"></iframe>
+        </div>
+        <div id='grid-contact-content'>
+            <p>
+                <em>Noch's</em> has been in business for over 50 years! 
+                We've been feeding Harvard and the surrounding area since 1966!
+                We sell award-winning sicilian-style pizza and mouth-watering 
+                steak subs! We have over 750 reviews on Yelp--- check it out!
+            </p>
+            <!-- Opening hours -->
+            <div id="open-hours">
+                <h5>Opening Hours:</h5>
+                <table id="opening-hours">
+                    {% for day, hours in PLACE.get_schedule %}
+                    {% if hours %}
+                    <tr>
+                        <td>{{day}}</td>
+                        {% for hour in hours%}
+                        <td>{{hour.0}} - {{hour.1}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif%}
+                    {% endfor%}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-footer"></div>
+</div>
+
+
+<!-- The Modal for Prodcuts -->
+<div id="modal-products" class="modal inactive">
+            
+    <!-- Modal content -->
+    <div class="slideproduct-container modal-content">
+        <!-- Close button -->
+        <span id="close-modal-products" class="close">&times;</span>
+        {% for food in menu.products %}
+            {% form_product food %}
+        {% endfor %}
+        <!-- Next and previous buttons -->
+        <a class="prev" id="prev-product" >&#10094;</a>
+        <a class="next" id="next-product" >&#10095;</a>
+    </div>
+</div>
+
+<!-- The Modal for Edit Cart Item -->
+<div id="modal-cart-item-edit" class="modal inactive">
+    <!-- Modal content -->
+    <div class="modal-content  modal-item-edit">
+        <!-- Close button -->
+        <span id="close-modal-edit-item" class="close">&times;</span>
+        <div class="product-form"></div>
+        <!--Loader-->
+        <div class="loader inactive"></div>
+    </div>
+</div>
+
+<div id="loader-checkout" class="modal inactive">
+    <div class="loader"></div>
+</div>
+
+<!-- Fixed Navigation Bar -->
+<div class="nav-bar-fixed">
+    <i id="move-nav-bar" class='material-icons staying'> drag_handle</i>
+    <a href="#place-info"><i class='material-icons'>place</i></a>
+    <a href="{% url 'shoppingcart:orders_user' user.username %}"><i class='material-icons'>receipt</i></a>
+    <a id="nav-bar-cart" href="{% url 'shoppingcart:user_cart' user.username %}"><i class='material-icons'>shopping_cart</i></a>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'js/data.js' %}"></script>
+    <script type="text/javascript" src="{% static 'orders/js/payment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shoppingcart/js/shopping_cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'orders/js/modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'orders/js/productslide.js' %}"></script>
+    <script type="text/javascript" src="{% static 'orders/js/profile.js' %}"></script>
+{% endblock %}

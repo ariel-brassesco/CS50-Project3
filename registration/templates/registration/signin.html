@@ -1,0 +1,69 @@
+{% extends "registration/base.html" %}
+
+{% load static %}
+
+{% block body %}
+
+<div class='signinForm'>
+  <div class='header-form-log'>
+    <img src="{{ PLACE.image.url }}" alt='logo'>
+    <h5>{{ PLACE.name }} - Registration</h5>
+    <hr>
+  </div>
+  <form id="signin-form" action="{% url 'registration:signin' %}" method='post'>
+      {% csrf_token %}
+    <div>
+        <div class="form-row">
+            <div class="form-group col-6">
+              <label for="first-name">First Name</label>
+              <input type="text" class="form-control" id="first-name" name="first-name">
+            </div>
+
+            <div class="form-group col-6">
+              <label for="last-name">Last Name</label>
+              <input type="text" class="form-control" id="last-name" name="last-name">
+            </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+            {% comment %}<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>{% endcomment %}
+          </div>
+
+          <div class="form-group col-6">
+            <label for="e-mail">E-mail</label>
+            <input type="email" class="form-control" id="e-mail" name="e-mail" required>
+            {% comment %}<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>{% endcomment %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="pass-check">Repeat Password</label>
+            <input type="password" class="form-control" id="pass-check" name="pass-check" required>
+          </div>
+        </div>
+      </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary">Sign in</button>
+          <small><a href="{% url 'registration:login' %}">Have an Account? Login</a></small>
+        </div>
+  </form>
+</div>
+
+<div class="msg inactive">
+</div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'registration/js/signin.js' %}"></script>
+{% endblock %}

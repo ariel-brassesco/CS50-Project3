@@ -1,0 +1,15 @@
+@media (max-width: 600px){
+    #orders-table {
+        font-size: 10px;
+        min-width: 500px;
+    }
+
+    td {
+        padding: 0 5px;
+    }
+
+    #search-bar, #add-filter, #search-btn, #update-table {
+        font-size: 12px;
+    }
+
+}

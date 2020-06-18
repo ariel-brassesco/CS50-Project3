@@ -1,0 +1,32 @@
+/* Change header */
+@media (max-width: 600px){
+    .grid-header{
+        position: relative;
+        display: block;
+    }
+
+    .place-info h1 {
+        font-size: 40px;
+    }
+
+    .place-info img {
+        align-self: flex-start;
+    }
+    .index-login-form {
+        justify-content: center;
+    }
+
+    /*Adjust position of button logout or back to menu */
+    #btn-logout {
+        left: 10px;
+        bottom: 10px;
+        top: auto;
+        right: auto;
+    }
+
+    #btn-back-menu {
+        bottom: 10px;
+        top: auto;
+    }
+
+}

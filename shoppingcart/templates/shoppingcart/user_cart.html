@@ -1,0 +1,64 @@
+{% extends "orders/base.html" %}
+
+{% load static %}
+{% load orders_tag %}
+{% load shoppingcart_tag %}
+
+{%block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'shoppingcart/css/shopping_cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/loader.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_tag.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/modal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/orders_manage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/responsive_modal.css' %}">
+{% endblock %}
+
+{% block externaljs %}
+    <!-- Stripe.js for online payments -->
+    <script async defer src="https://js.stripe.com/v3/"></script>
+    <!--Cookies Library-->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+{% endblock %}
+
+{% block body%}
+<div class="mainPage">
+    <div class="grid-header">
+        <div class="place-info">
+            <img src="{{PLACE.image.url}}" alt="{{ PLACE.name }}">
+            <h1 class="display-4">{{user.username|upper}}'s Cart</h1>
+        </div>
+        <a id="btn-back-menu"class="btn btn-danger" href="{% url 'orders:profile'%}">Back to Menu</a>
+    </div>
+
+    <div class="grid-main">
+        {% show_cart shopping_cart %}
+    </div>
+
+    <div id="modal-cart-item-edit" class="modal inactive">
+        <!-- Modal content -->
+        <div class="modal-content modal-item-edit">
+            <!-- Close button -->
+            <span id="close-modal-edit-item" class="close">&times;</span>
+            <div class="product-form"></div>
+            <!--Loader-->
+            <div class="loader inactive"></div>
+        </div>
+    </div>
+
+    <div id="loader-checkout" class="modal inactive">
+        <div class="loader"></div>
+    </div>
+</div>
+{% endblock%}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'js/data.js' %}"></script>
+<script type="text/javascript" src="{% static 'orders/js/payment.js' %}"></script>
+<script type="text/javascript" src="{% static 'shoppingcart/js/shopping_cart.js' %}"></script>
+<script type="text/javascript" src="{% static 'orders/js/modal.js' %}"></script>
+<script type="text/javascript" src="{% static 'shoppingcart/js/user_cart.js' %}"></script>
+{% endblock%}

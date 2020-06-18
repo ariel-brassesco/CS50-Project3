@@ -1,0 +1,71 @@
+.menu-profile {
+    margin: 10px 0 0 10px;
+}
+
+.menu-profile-header {
+    background-color: #ccc;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.menu-profile-products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+/* CSS for nav-bar-fixed*/
+.moving {
+    cursor: grabbing;
+}
+
+.staying {
+    cursor: grab;
+}
+
+.go-to-border{
+    transition: left 0.5s linear;
+}
+
+/* CSS for grid-contact*/
+#about-us {
+    grid-area: 1/1/2/3;
+    padding: 20px 10px;
+    background: linear-gradient(left, green, #eee);
+    background: -moz-linear-gradient(left, green, #eee);
+    color: white;
+}
+
+#googleMap {
+    grid-area: 2/1/3/2;
+    width: 100%;
+}
+
+#googleMap iframe{
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+#grid-contact-content {
+    grid-area: 2/2/3/3;
+}
+
+/* Hide the cart in navigation bar
+   Only available for short screen
+*/
+#nav-bar-cart {
+    display: none;
+}
+
+/* Bring the loader-checkout to front*/
+#loader-checkout .loader {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+    transform-origin: translate(50%, 50%);
+}

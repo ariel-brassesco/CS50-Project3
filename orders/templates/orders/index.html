@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load orders_filters %}
+{% load orders_tag %}
+
+{%block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'orders/css/show_place.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_index.css' %}">
+{% endblock %}
+
+{% block externaljs %}
+{% endblock %}
+
+{% block body %}
+
+<div class="mainPage">
+
+    <div class="grid-header">
+        {% show_place PLACE %}
+        <div class="login-index">
+            <form action="{% url 'registration:direct_login' %}" method='post'>
+                {% csrf_token %}
+                <div class="index-login-form">
+                    <div class="index-inputs">
+                        <label class="index-input" for="username">
+                            <span>Username</span>
+                            <input type="text" class="" id="username" name="username">
+                        </label>
+                        <label class="index-input" for="password">
+                            <span>Password</span>
+                            <input type="password" class="" id="password" name="password">
+                        </label>
+                        <a href="{% url 'registration:password_reset' %}">Forget your password?</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                        <a class="btn btn-primary btn-sm" type="button" href="{% url 'registration:signin' %}">Sign In</a>
+                    </div>
+                </div>
+            </form>     
+        </div>
+    </div>
+
+    <div class='grid-main'>
+        {% for item in menu.platters %}
+        <div class="index-menu-product">
+            <!-- Put the Name of Type Menu as Header -->
+            <h2>{{item.item_type}}</h2>
+            <hr>
+            <table class="index-products">
+                <!--Create the Headers for Tables. Only put the Size of products -->
+                <thead>
+                    <th></th>
+                {% for size in item.get_sizes %}
+                    <th> {{size.item_size}}</th>
+                {% empty %}
+                 <th>Price</th>
+                {% endfor %}
+                </thead>
+                <!-- Create the table content-->
+                <tbody>
+                {% for food in menu.products %}
+                    {% if food.menu_type.id == item.id %}
+                    {% for variation in food.get_presentations %}
+                        <tr class="{% if not forloop.first %}index-product-options {% endif %}">
+                            <td>{{ variation|food_name:food }} {{ variation.description }}</td>
+                            {% for size in item.get_sizes %}
+                            <td> {{ food|get_variation:variation|price:size|floatformat:2|dolar_sign }}</td>
+                            {% empty %}
+                            <td> {{ food|get_variation:variation|price|floatformat:2|dolar_sign }}</td>
+                            {% endfor %}
+                        </tr>
+                    <!-- Add the diffrence options for Pizzas and their prices -->
+                        {% if forloop.first%}
+                        {% for i in food.max_add|times:True %}
+                        <tr class="index-product-options">
+                           <td> +{{i}} topping</td>
+                            {% with top_price=i|mult:2%}
+                                {% for size in item.get_sizes %}
+                                <td> {{ food|get_variation:variation|price:size|sum:top_price|floatformat:2|dolar_sign }}</td>
+                                {% endfor %}
+                            {% endwith %}
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    
+                <!-- Add the Toppings options for Others Menu Types that are not Pizzas -->
+                    {% if item.item_type != 'Pizza' and food.menu_type.id == item.id%}
+                    {% for topping in food.additional.all %}
+                    {% if not topping.is_for_all %}
+                    <tr class="index-product-options">
+                        <td> {{topping.topping}}</td>
+                        {% for size in item.get_sizes %}
+                        <td> +{{ topping.price|floatformat:2|dolar_sign }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                {% for topping in menu.toppings %}
+                    {% if item.item_type != 'Pizza' and topping.topping_type.id == item.id and topping.is_for_all%}
+                    <tr>
+                        <td>{{topping.topping}} for any {{item.item_type}}</td>
+                        {% for size in item.get_sizes %}
+                        <td> +{{ topping.price|floatformat:2|dolar_sign }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- Add the Toppings List only for Pizzas -->
+            {% if item.item_type == 'Pizza' %}
+            <hr>
+            <div class="index-menu-toppings">
+                <h2>Toppings</h2>
+                <hr>
+                {% for topping in menu.toppings %}
+                    {% if topping.topping_type.id == item.id %}
+                        <span class="index-pizza-topping">{{ topping.topping }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif%}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class='grid-nav'>
+        <div class="index-about">
+            <div id="about-us-index">
+                <h3>About Us</h3>
+                <p><em>Noch's</em> has been in business for over 50 years! 
+                    We've been feeding Harvard and the surrounding area since 1966!
+                    We sell award-winning sicilian-style pizza and mouth-watering 
+                    steak subs! We have over 750 reviews on Yelp--- check it out!
+                </p>
+            </div>
+            
+            <!--Div element for GoogleMaps-->
+            <div id="googleMap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5895.209360870708!2d-71.12287183467689!3d42.372263466870216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcab27982991e9fe3!2sPinocchio&#39;s%20Pizza%20%26%20Subs!5e0!3m2!1ses-419!2sar!4v1592247774095!5m2!1ses-419!2sar"
+                 allowfullscreen aria-hidden="false" tabindex="0"></iframe>
+            </div>
+            <br>
+            
+            <!-- Opening hours -->
+            <div>
+                <h5>Opening Hours:</h5>
+                <table id="opening-hours">
+                    {% for day, hours in PLACE.get_schedule %}
+                    {% if hours %}
+                    <tr>
+                        <td>{{day}}</td>
+                        {% for hour in hours%}
+                        <td>{{hour.0}} - {{hour.1}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif%}
+                    {% endfor%}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'js/data.js' %}"></script>
+    <script type="text/javascript" src="{% static 'orders/js/index.js' %}"></script>
+{% endblock %}
