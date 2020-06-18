@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // When resize the browser allow navigation bar moving with scroll
     // if the width of viewport is grater than 600px
+    moveNavigation(nav_bar, grid_nav);
+    
     window.addEventListener('resize', () => {
         if (!mql.matches) moveNavigation(nav_bar, grid_nav);
     }, false);

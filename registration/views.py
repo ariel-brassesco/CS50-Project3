@@ -18,7 +18,12 @@ import json
 # Create your views here.
 
 def new_user(request):
-    
+    '''
+    This function check the data singin is valid, the username and e-mail 
+    are available.
+    If the new user is valid, create it and login.
+    Return False if the data are not valid, otherwise return True.
+    '''
     print('New User Request')
     username = request.POST['username']
     password = request.POST['password']
@@ -66,6 +71,9 @@ def new_user(request):
     return False, context
 
 def signin_view(request):
+    '''
+    Render the Singin Page if the user is not already login.
+    '''
     print('Registration')
     if not request.user.is_authenticated:
         if request.method == 'POST':
@@ -79,6 +87,9 @@ def signin_view(request):
     return HttpResponseRedirect(reverse("orders:profile"))
 
 def login_view(request):
+    '''
+    Login a user request. If the credentials are not valid return to Login Page.
+    '''
     print('Login')
     if request.method == 'POST':
         username = request.POST["username"]
@@ -102,11 +113,18 @@ def login_view(request):
     return render(request, "registration/login.html")
 
 def logout_view(request):
+    '''
+    Logout the user and redirect to Index Page.
+    '''
     print('Logout')
     logout(request)
     return HttpResponseRedirect(reverse("orders:index"))
 
 def direct_login(request):
+    '''
+    Same as login_view but from login from in Index Page.
+    If credentials are invalid Login Page.
+    '''
     if request.method == 'POST':
         response = login_view(request)
         data = json.loads(response.content)
@@ -115,6 +133,10 @@ def direct_login(request):
     return render(request, "registration/login.html")
 
 def owner_login_view(request):
+    '''
+    Login for owners. If the user has not Staff Permission redirect to
+    Profile Page, otherwise redirect to Orders Manage Page.
+    '''
     print('Owner Login')
     if request.method == 'POST':
         username = request.POST["username"]
@@ -139,6 +161,11 @@ def owner_login_view(request):
     return render(request, "registration/owner_login.html", {"message": None})
 
 def password_reset(request):
+    '''
+    Handle the reset password request.
+    Send an email with a link for reset password.
+    If the user email not match any user, do nothing.
+    '''
     print('Password Reset')
     if request.method == 'POST':
         email = request.POST['email']
@@ -175,7 +202,6 @@ def password_reset(request):
 
             # Send email
             user.email_user(subject, message, from_email)
-
         except User.DoesNotExist:
             pass
         # Render the password_reset_done.html page
@@ -183,7 +209,9 @@ def password_reset(request):
     return render(request,'registration/password_reset_form.html')
 
 def password_reset_confirm(request, uidb64, token):
-
+    '''
+    Verify the user id and the token to show the reset password form.
+    '''
     # Decode the user id from uidb64
     user_id = int(urlsafe_b64decode(uidb64))
 
@@ -198,7 +226,9 @@ def password_reset_confirm(request, uidb64, token):
     return render(request,'registration/password_reset_confirm.html', context)
 
 def password_reset_complete(request):
-
+    '''
+    Handle the new password form for reset.
+    '''
     if request.method == 'POST':
         password = request.POST['password']
         pass_check = request.POST['pass-check']
@@ -237,7 +267,13 @@ def password_reset_complete(request):
     return HttpResponseRedirect(reverse('orders:index'))
 
 def password_reset_success(request):
+    '''
+    Render the Successfull Reset Password Page.
+    '''
     return render(request, 'registration/password_reset_complete.html')
 
 def password_reset_failed(request):
+    '''
+    Render the Error Reset Password Page for token invalid.
+    '''
     return render(request, 'registration/password_reset_error.html')

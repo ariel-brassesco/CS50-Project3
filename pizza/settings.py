@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs50-pinocchio.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'cs50-pinocchio.herokuapp.com']
 
 
 # Application definition
@@ -136,7 +136,6 @@ MEDIA_URL = "/images/"
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # EMAIL SETTINGS
-
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -148,6 +147,6 @@ EMAIL_SENDER = 'no-responde@CS50-pinocchio.com'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 # Stripe online payment API-KEY
-STRIPE_SECRET_API_KEY = os.getenv('STRIPE_API_KEY')
+STRIPE_SECRET_API_KEY = os.getenv('STRIPE_SECRET_API_KEY')
 
 

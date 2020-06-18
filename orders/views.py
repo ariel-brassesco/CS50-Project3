@@ -15,7 +15,9 @@ from shoppingcart.models import ShoppingCart, Order, OrderItem
 # Create your views here.
 
 def index(request):
-
+    '''
+    Render the Index Page.
+    '''
     context = {
         'menu': {'platters': MenuItem.objects.select_related(),
                 'products': Product.objects.select_related(),
@@ -30,7 +32,9 @@ def index(request):
     return HttpResponseRedirect(reverse("orders:profile"))
 
 def profile(request):
-    
+    '''
+    Render the Profile Page if user is login, otherwise redirect to Index Page.
+    '''
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("orders:index"))
     
@@ -58,6 +62,10 @@ def profile(request):
     return render(request, "orders/profile.html", context)
 
 def owner_login(request):
+    '''
+    If user has Staff Permission redirect to Orders Manage Page, otherwise 
+    redirect to Login Page.
+    '''
     #Check user is staff and is login
     if request.user.is_authenticated and request.user.is_staff:
         return HttpResponseRedirect(reverse('orders:owner_orders'))
@@ -65,6 +73,10 @@ def owner_login(request):
     return HttpResponseRedirect(reverse("registration:owner_login"))
 
 def owner_orders(request):
+    '''
+    If user has Staff Permission render Orders Manage Page, otherwise 
+    redirect to Index Page.
+    '''
     #Check user is staff and is login
     if request.user.is_authenticated and request.user.is_staff:
         context = {
@@ -75,6 +87,11 @@ def owner_orders(request):
     return HttpResponseRedirect(reverse('orders:index'))
 
 def owner_items(request, order):
+    '''
+    If user has Staff Permissions render Order Items Manage, otherwise
+    redirect to Index Page.
+    '''
+
     if not (request.user.is_authenticated and request.user.is_staff):
         return HttpResponseRedirect(reverse('orders:index'))
     
@@ -86,6 +103,11 @@ def owner_items(request, order):
     return render(request, 'orders/order_items_manage.html', context)
 
 def api_products_data(request):
+    '''
+    Return a JsonResponse with Products Data if request is POST,
+    otherwise return and JsonResponse with an error message.
+    '''
+
     if request.method == 'POST':
         res = {}
         for product in Product.objects.select_related():
