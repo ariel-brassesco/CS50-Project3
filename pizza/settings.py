@@ -137,8 +137,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # EMAIL SETTINGS
 
-#SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
@@ -149,6 +148,6 @@ EMAIL_SENDER = 'no-responde@CS50-pinocchio.com'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 # Stripe online payment API-KEY
-#STRIPE_SECRET_API_KEY = os.getenv('STRIPE_API_KEY')
-STRIPE_SECRET_API_KEY = 'sk_test_SYa9yHkQ93yzFQJTJfDZpDjI00TZ1QpKJX'
+STRIPE_SECRET_API_KEY = os.getenv('STRIPE_API_KEY')
+
 
