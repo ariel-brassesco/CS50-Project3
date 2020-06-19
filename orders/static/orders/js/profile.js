@@ -54,13 +54,14 @@ const loadFixedNavBar = ()=>{
     const move_bar = document.getElementById('move-nav-bar');
     const dim_move_bar = move_bar.getBoundingClientRect();
     
+    // When press the mouse button
     document.addEventListener('mousedown', (e)=>{
         if (e.target.id === move_bar.id){
             move_bar.classList.replace('staying', 'moving');
             nav_bar.classList.remove('go-to-border');
         }
     }, false);
-
+    // When stop pressing the mouse button
     document.addEventListener('mouseup', (e)=>{
         if (e.target.id === move_bar.id){
             move_bar.classList.replace('moving', 'staying');
@@ -70,14 +71,40 @@ const loadFixedNavBar = ()=>{
             nav_bar.style.left = pos + 'px';
         }
     }, false);
-
+    // When move the mouse
     document.addEventListener('mousemove', (e)=>{
         if (move_bar.classList.contains('moving')){
             nav_bar.style.top = e.clientY - dim_move_bar.height/2 + 'px';
             nav_bar.style.left = e.clientX - dim_move_bar.width/2 + 'px';
         }
-    }, false)
+    }, false);
 
+    //Now the same above but for touch screen
+    // When touch the nav bar to start moving
+    document.addEventListener('touchstart', (e)=>{
+        console.log(e.target);
+        if (e.target.id === move_bar.id){
+            move_bar.classList.replace('staying', 'moving');
+            nav_bar.classList.remove('go-to-border');
+        }
+    }, false);
+    // When stop touching the screen
+    document.addEventListener('touchend', (e)=>{
+        if (e.target.id === move_bar.id){
+            move_bar.classList.replace('moving', 'staying');
+            nav_bar.classList.add('go-to-border');
+            
+            let pos = (window.innerWidth/2 < e.changedTouches[0].clientX)?window.innerWidth-dim_move_bar.width-30:5;
+            nav_bar.style.left = pos + 'px';
+        }
+    }, false);
+    // When move the finger over the screen
+    document.addEventListener('touchmove', (e)=>{
+        if (move_bar.classList.contains('moving')){
+            nav_bar.style.top = e.changedTouches[0].clientY - dim_move_bar.height/2 + 'px';
+            nav_bar.style.left = e.changedTouches[0].clientX - dim_move_bar.width/2 + 'px';
+        }
+    }, false);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

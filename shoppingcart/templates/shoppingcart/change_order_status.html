@@ -6,5 +6,7 @@
 <main>
     <p><strong>Hello {{ user.username|upper }},</strong></p>
     <p>Your {{ order }} is {{ status }}. Click <a href="{% url 'shoppingcart:orders_user' user.username %}">here</a> to follow.</p>
-    <p><strong>,<br>Pinocchio's Pizza Team</strong></p>
+    <p><strong>Sincerely,
+        <br>Pinocchio's Pizza Team</strong>
+    </p>
 </main>

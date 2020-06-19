@@ -146,6 +146,7 @@ EMAIL_USE_TLS = True
 EMAIL_SENDER = 'no-responde@CS50-pinocchio.com'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_ECHO_TO_STDOUT = False
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 

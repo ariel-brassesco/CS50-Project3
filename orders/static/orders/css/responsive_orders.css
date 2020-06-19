@@ -1,4 +1,5 @@
 @media (max-width: 600px){
+    /*Resize the table and the text content*/
     #orders-table {
         font-size: 10px;
         min-width: 500px;
@@ -8,8 +9,15 @@
         padding: 0 5px;
     }
 
+    /*Resize the text of search field and buttons*/
     #search-bar, #add-filter, #search-btn, #update-table {
         font-size: 12px;
+    }
+    /*Resize the loader*/
+    .status-loader::before{
+        margin-left: -6px;
+        height: 12px;
+        width: 12px;
     }
 
 }

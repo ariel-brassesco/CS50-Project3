@@ -134,7 +134,7 @@ const item_editor_open = (id) => {
     
     //Show the modal and loader
     show_modal(modal);
-    run_loader_waiting(loader); 
+    run_loader(loader);
 
     //Request the item data
     let post_url = window.location.origin + '/shopping/data_item/' + id;
@@ -147,7 +147,7 @@ const item_editor_open = (id) => {
     .then(res => {
         if (res.success){
             //Hide the Loader
-            run_loader_waiting(loader);
+            run_loader(loader);
             //Add the content
             modal.querySelector(".product-form").innerHTML = res.page;
             //Update the size price

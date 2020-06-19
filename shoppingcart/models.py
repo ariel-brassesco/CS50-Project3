@@ -7,7 +7,7 @@ from orders.models import Product, ProductSize, ProductVariation, Topping, Price
 
 # Create your models here.
 class ItemCart():
-    
+
     def __init__(self, product=None, size=None, presentation=None,
                 additional=[], quantity=1):
         
