@@ -29,4 +29,17 @@
         top: auto;
     }
 
+    .list-place-characteristics {
+        padding-left: 0;
+
+    }
+
+}
+
+@media (max-width: 400px){
+
+    .place-info h1 {
+        font-size: 30px;
+    }
+
 }

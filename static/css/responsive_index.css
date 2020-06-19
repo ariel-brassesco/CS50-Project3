@@ -36,4 +36,12 @@
     #opening-hours {
         margin-bottom: 10px;
     }
+
+}
+
+@media (max-width: 400px){
+    .index-products {
+        font-size: 12px;
+    }
+
 }
